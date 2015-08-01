@@ -29,7 +29,7 @@ var http = require("http");
 var fondueMiddleware = require("../");
 
 var listenPort = 3000;
-var proxiedPort = 8080;
+var proxiedPort = process.env.PORT || 8080;
 
 console.log("starting a server at http://localhost:" + listenPort);
 console.log("proxying requests to http://localhost:" + proxiedPort);
