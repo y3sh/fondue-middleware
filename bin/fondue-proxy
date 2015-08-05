@@ -28,23 +28,25 @@ var httpProxy = require("http-proxy");
 var http = require("http");
 var fondueMiddleware = require("../");
 
-var listenPort = 3000;
-var proxiedPort = 8080;
+var listenPort = 9000;
+//var proxiedDomain = "http://54.175.112.172";
+var proxiedDomain = "http://127.0.0.1";
+var proxiedPort = 3000;
 
 console.log("starting a server at http://localhost:" + listenPort);
-console.log("proxying requests to http://localhost:" + proxiedPort);
+console.log("proxying requests to " + proxiedDomain + ":" + proxiedPort);
 
 var proxy = httpProxy.createProxyServer();
 var middleware = fondueMiddleware();
 
 proxy.on("error", function (err, req, res) {
-	console.log("proxy error", err);
-	res.end();
+  console.log("proxy error", err);
+  res.end();
 });
 
-http.createServer(function(req, res) {
-	console.log(req.method, req.url);
-	middleware(req, res, function () {
-		proxy.web(req, res, { target: "http://localhost:" + proxiedPort });
-	});
+http.createServer(function (req, res) {
+  console.log(req.method, req.url);
+  middleware(req, res, function () {
+    proxy.web(req, res, {target: "" + proxiedDomain + ":" + proxiedPort});
+  });
 }).listen(listenPort);
