@@ -27,7 +27,7 @@
 "use strict";
 
 var crypto = require("crypto");
-var fondue = require("fondue");
+var fondue = require("../fondue");
 var zlib = require("zlib");
 
 // instrumented javascript cache
